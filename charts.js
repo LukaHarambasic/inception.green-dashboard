@@ -2,7 +2,7 @@
 new Chart(document.getElementById("chart-main"), {
   type: "bar",
   data: {
-    labels: getRolling12MonthsLabels(),
+    labels: rolling12MonthsLabels,
     datasets: [
       {
         label: "Carbon Offset",
@@ -29,15 +29,15 @@ new Chart(document.getElementById("chart-main"), {
         order: 1,
         yAxisID: "y",
       },
-      {
-        label: "Tree Age (average)",
-        backgroundColor: ["#49654C"],
-        data: chartMainTreesGroupedByAge,
-        borderRadius: 2,
-        type: "line",
-        order: 2,
-        yAxisID: "y1",
-      },
+      //   {
+      //     label: "Tree Age (average)",
+      //     backgroundColor: ["#49654C"],
+      //     data: chartMainTreesGroupedByAge,
+      //     borderRadius: 2,
+      //     type: "line",
+      //     order: 2,
+      //     yAxisID: "y1",
+      //   },
     ],
   },
   options: {
@@ -47,18 +47,18 @@ new Chart(document.getElementById("chart-main"), {
         display: true,
         position: "left",
       },
-      y1: {
-        type: "linear",
-        display: true,
-        position: "right",
-        title: {
-          display: true,
-          text: "Average age",
-        },
-        grid: {
-          drawOnChartArea: false, // only want the grid lines for one axis to show up
-        },
-      },
+      // y1: {
+      //   type: "linear",
+      //   display: true,
+      //   position: "right",
+      //   title: {
+      //     display: true,
+      //     text: "Average age",
+      //   },
+      //   grid: {
+      //     drawOnChartArea: false, // only want the grid lines for one axis to show up
+      //   },
+      // },
     },
   },
 });

@@ -1,3 +1,18 @@
+function rollingSorting(data) {
+  const startMonth = dateFns.getMonth(new Date());
+  const result = [];
+  let index = startMonth;
+  for (i = 0; i < 12; i++) {
+    if (index < 0) {
+      index = 11;
+    }
+    result.push(data[index]);
+    index--;
+  }
+  // Yeah wouldn't be needed if I would be smart :)
+  return result.reverse();
+}
+
 // https://stackoverflow.com/a/38327540
 function groupBy(list, keyGetter) {
   const map = new Map(INIT_YEAR_MAP);
@@ -35,23 +50,7 @@ const enhanced = input.map((tree) => {
   };
 });
 
-// Main chart
-const startMonth = dateFns.getMonth(dateFns.subMonths(new Date(), 12));
-
-function getRolling12MonthsLabels() {
-  const startMonth = dateFns.getMonth(new Date());
-  const months = [];
-  let index = startMonth;
-  for (i = 0; i < 12; i++) {
-    if (index < 0) {
-      index = 11;
-    }
-    months.push(MONTHS[index]);
-    index--;
-  }
-  // Yeah wouldn't be needed if I would be smart :)
-  return months.reverse();
-}
+const rolling12MonthsLabels = rollingSorting(MONTHS);
 
 const enhancedTreesLast12Months = enhanced.filter(
   (tree) => tree.ageInMonth <= 12
@@ -84,7 +83,7 @@ function aggregateMapValues(initialMap, attribute) {
       map.set(key, sum);
     }
   });
-  return mapToArray(map);
+  return rollingSorting(mapToArray(map));
 }
 
 function mapSizePerValue(initialMap) {
@@ -96,7 +95,7 @@ function mapSizePerValue(initialMap) {
       map.set(key, value.length);
     }
   });
-  return mapToArray(map);
+  return rollingSorting(mapToArray(map));
 }
 
 // TODO functions: sortArrayByRollingMonth
@@ -116,7 +115,7 @@ function treesPlantedAccumulatedPerMonth(
       result.push(result[index - 1] + trees);
     }
   });
-  return result;
+  return rollingSorting(result);
 }
 
 const chartMainCarbonOffsetPerMonth = aggregateMapValues(
