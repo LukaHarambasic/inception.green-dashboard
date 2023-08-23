@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <!-- Chartjs https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js -->
+  <!-- DateFns https://cdnjs.cloudflare.com/ajax/libs/date-fns/1.30.1/date_fns.min.js -->
+  <script defer src="libs/chart_4.3.0.js"></script>
+  <script defer src="libs/datefns_1.30.1.js"></script>
+  <script defer src="consts.js"></script>
+  <script defer src="data.js"></script>
+  <script defer src="transformer.js"></script>
+  <script defer src="charts.js"></script>
+</head>
+<body>
+  <div class="grid">
+    <div class="container">
+      <canvas id="chart-main"></canvas>
+    </div>
+    <div class="container">
+      <canvas id="chart-fruit-trees-monthly"></canvas>
+    </div>
+    <div class="container">
+      <canvas id="chart-fruit-trees-total"></canvas>
+    </div>
+  </div>
+</body>
+</html>
