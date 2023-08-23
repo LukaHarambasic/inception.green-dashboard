@@ -104,15 +104,6 @@ function mapToArray(initialMap) {
 console.log("enhancedTreesLast12MonthsGroupedByMonth");
 console.log(enhancedTreesLast12MonthsGroupedByMonth);
 
-const carbonOffsetPerMonth = mapToArray(
-  aggregateMapValues(enhancedTreesLast12MonthsGroupedByMonth, "carbonOffset")
-);
-const treesPlantedPerMonth = mapToArray(
-  mapSizePerValue(enhancedTreesLast12MonthsGroupedByMonth)
-);
-console.log("treesPlantedPerMonth");
-console.log(treesPlantedPerMonth);
-
 function treesPlantedAccumulatedPerMonth(
   initTreesPlantedPerMonth,
   initEnhancedTreesOlderThan12Months
@@ -131,19 +122,61 @@ function treesPlantedAccumulatedPerMonth(
   return result;
 }
 
-console.log("here we go");
-console.log(
-  treesPlantedAccumulatedPerMonth(
-    treesPlantedPerMonth,
-    enhancedTreesOlderThan12Months
-  )
+const chartMainCarbonOffsetPerMonth = mapToArray(
+  aggregateMapValues(enhancedTreesLast12MonthsGroupedByMonth, "carbonOffset")
 );
 
+const chartMainTreesPlantedPerMonth = mapToArray(
+  mapSizePerValue(enhancedTreesLast12MonthsGroupedByMonth)
+);
+
+const chartMainTotalTrees = treesPlantedAccumulatedPerMonth(
+  treesPlantedPerMonth,
+  enhancedTreesOlderThan12Months
+);
+
+const chartMainTreesGroupedByAge = [0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1];
+
 // Fruit Trees per Month chart
-const ageInMonthsLabels = [];
+const chartFruitTreeAgeInMonthsLabels = [
+  "0.1",
+  "0.2",
+  "0.3",
+  "0.4",
+  "0.5",
+  "0.6",
+  "0.7",
+  "0.8",
+  "0.9",
+  "1.0",
+  "1.1",
+  "1.2",
+  "1.3",
+  "1.4",
+];
 // dynamic for every type - use to generate the whole data sets
-const treesPerAge = [];
+const chartFruitTreeTreesPerAgeDatasets = [
+  {
+    label: "Papaya",
+    backgroundColor: ["#D2DED2"],
+    data: [34, 55, 65, 34, 123, 43, 54, 65, 76, 68, 12, 0, 4],
+    borderRadius: 2,
+  },
+  {
+    label: "Mango",
+    backgroundColor: ["#86A786"],
+    data: [34, 56, 75, 34, 23, 56, 57, 68, 34, 7, 35, 6, 7, 8],
+    borderRadius: 2,
+  },
+  {
+    label: "Avocado",
+    backgroundColor: ["#49654C"],
+    data: [23, 3, 23, 3, 54, 67, 45, 34, 4, 3, 4, 4, 5, 5],
+    borderRadius: 2,
+  },
+];
 
 // Pie Chart
-const treeLabels = [];
-const treesGroupedByType = [];
+const chartPieLabels = ["Jackfruit", "Mango", "Avocado", "Papaya"];
+const chartPieColors = ["#ABC2AB", "#86A786", "#49654C", "#D2DED2"];
+const chartPietreesGroupedByType = [1000, 400, 120, 320];
