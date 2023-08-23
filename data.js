@@ -1,3 +1,4 @@
+// This should somehow come from the API, prefiltered by company ID
 const input = [
   { type: "Jackfruit", planted_date: dateFns.subMonths(new Date(), 0) },
   { type: "Jackfruit", planted_date: dateFns.subMonths(new Date(), 0) },

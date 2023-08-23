@@ -13,6 +13,14 @@ function rollingSorting(data) {
   return result.reverse();
 }
 
+function mapToArray(initialMap) {
+  const array = [];
+  initialMap.forEach((value, key) => {
+    array.push(value);
+  });
+  return array;
+}
+
 // https://stackoverflow.com/a/38327540
 function groupBy(list, keyGetter) {
   const map = new Map(INIT_YEAR_MAP);
@@ -34,8 +42,6 @@ function getCarbonOffsetPerType(type) {
   return result.carbon_offset;
 }
 
-// This should somehow come from the API, prefiltered by company ID
-
 const enhanced = input.map((tree) => {
   const ageInMonth = dateFns.differenceInMonths(new Date(), tree.planted_date);
   const plantedMonth = dateFns.getMonth(tree.planted_date);
@@ -50,8 +56,6 @@ const enhanced = input.map((tree) => {
   };
 });
 
-const rolling12MonthsLabels = rollingSorting(MONTHS);
-
 const enhancedTreesLast12Months = enhanced.filter(
   (tree) => tree.ageInMonth <= 12
 );
@@ -65,17 +69,11 @@ const enhancedTreesLast12MonthsGroupedByMonth = groupBy(
   (tree) => tree.plantedMonth
 );
 
-function mapToArray(initialMap) {
-  const array = [];
-  initialMap.forEach((value, key) => {
-    array.push(value);
-  });
-  return array;
-}
-
 function aggregateMapValues(initialMap, attribute) {
-  const map = new Map(INIT_YEAR_MAP);
-  initialMap.forEach((value, key) => {
+  const map = new Map(rollingSorting(INIT_YEAR_MAP));
+  const sortedInitialMap = new Map(rollingSorting([...initialMap.entries()]));
+  console.log(map);
+  sortedInitialMap.forEach((value, key) => {
     if (value === null) {
       map.set(key, 0);
     } else {
@@ -83,7 +81,8 @@ function aggregateMapValues(initialMap, attribute) {
       map.set(key, sum);
     }
   });
-  return rollingSorting(mapToArray(map));
+  console.log(map);
+  return mapToArray(map);
 }
 
 function mapSizePerValue(initialMap) {
@@ -117,6 +116,9 @@ function treesPlantedAccumulatedPerMonth(
   });
   return rollingSorting(result);
 }
+
+// Values main chart
+const rolling12MonthsLabels = rollingSorting(MONTHS);
 
 const chartMainCarbonOffsetPerMonth = aggregateMapValues(
   enhancedTreesLast12MonthsGroupedByMonth,
