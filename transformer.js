@@ -66,6 +66,14 @@ const enhancedTreesLast12MonthsGroupedByMonth = groupBy(
   (tree) => tree.plantedMonth
 );
 
+function mapToArray(initialMap) {
+  const array = [];
+  initialMap.forEach((value, key) => {
+    array.push(value);
+  });
+  return array;
+}
+
 function aggregateMapValues(initialMap, attribute) {
   const map = new Map(INIT_YEAR_MAP);
   initialMap.forEach((value, key) => {
@@ -76,7 +84,7 @@ function aggregateMapValues(initialMap, attribute) {
       map.set(key, sum);
     }
   });
-  return map;
+  return mapToArray(map);
 }
 
 function mapSizePerValue(initialMap) {
@@ -88,21 +96,10 @@ function mapSizePerValue(initialMap) {
       map.set(key, value.length);
     }
   });
-  return map;
-}
-
-function mapToArray(initialMap) {
-  const array = [];
-  initialMap.forEach((value, key) => {
-    array.push(value);
-  });
-  return array;
+  return mapToArray(map);
 }
 
 // TODO functions: sortArrayByRollingMonth
-
-console.log("enhancedTreesLast12MonthsGroupedByMonth");
-console.log(enhancedTreesLast12MonthsGroupedByMonth);
 
 function treesPlantedAccumulatedPerMonth(
   initTreesPlantedPerMonth,
@@ -122,16 +119,17 @@ function treesPlantedAccumulatedPerMonth(
   return result;
 }
 
-const chartMainCarbonOffsetPerMonth = mapToArray(
-  aggregateMapValues(enhancedTreesLast12MonthsGroupedByMonth, "carbonOffset")
+const chartMainCarbonOffsetPerMonth = aggregateMapValues(
+  enhancedTreesLast12MonthsGroupedByMonth,
+  "carbonOffset"
 );
 
-const chartMainTreesPlantedPerMonth = mapToArray(
-  mapSizePerValue(enhancedTreesLast12MonthsGroupedByMonth)
+const chartMainTreesPlantedPerMonth = mapSizePerValue(
+  enhancedTreesLast12MonthsGroupedByMonth
 );
 
 const chartMainTotalTrees = treesPlantedAccumulatedPerMonth(
-  treesPlantedPerMonth,
+  chartMainTreesPlantedPerMonth,
   enhancedTreesOlderThan12Months
 );
 
