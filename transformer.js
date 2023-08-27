@@ -72,7 +72,6 @@ const enhancedTreesLast12MonthsGroupedByMonth = groupBy(
 function aggregateMapValues(initialMap, attribute) {
   const map = new Map(rollingSorting(INIT_YEAR_MAP));
   const sortedInitialMap = new Map(rollingSorting([...initialMap.entries()]));
-  console.log(map);
   sortedInitialMap.forEach((value, key) => {
     if (value === null) {
       map.set(key, 0);
@@ -81,7 +80,6 @@ function aggregateMapValues(initialMap, attribute) {
       map.set(key, sum);
     }
   });
-  console.log(map);
   return mapToArray(map);
 }
 
@@ -105,7 +103,7 @@ function treesPlantedAccumulatedPerMonth(
 ) {
   const startingValueAccumulatedPlantedTrees =
     initEnhancedTreesOlderThan12Months.length;
-  console.log(startingValueAccumulatedPlantedTrees);
+  const sortedTreesPlantedPerMonth = rollingSorting(initTreesPlantedPerMonth);
   const result = [];
   initTreesPlantedPerMonth.forEach((trees, index) => {
     if (index === 0) {
@@ -114,7 +112,7 @@ function treesPlantedAccumulatedPerMonth(
       result.push(result[index - 1] + trees);
     }
   });
-  return rollingSorting(result);
+  return result;
 }
 
 // Values main chart
