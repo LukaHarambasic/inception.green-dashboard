@@ -136,26 +136,16 @@ const chartMainTotalTrees = treesPlantedAccumulatedPerMonth(
 // const chartMainTreesGroupedByAge = [0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1];
 
 // Fruit Trees per Month chart
-
-console.log(enhanced);
 // TODO specific name
 function calculateLabels(initTrees) {
   const ages = initTrees.map((tree) => tree.ageInMonth);
   return [...new Set(ages)];
 }
 
-const testing = new Map();
-const papayaMap = new Map();
-papayaMap.set(1, 20);
-papayaMap.set(2, 30);
-papayaMap.set(5, 5);
-testing.set("Papaya", papayaMap);
-console.log(testing);
+const treeTypes = CARBON_OFFSET_PER_TREE_TYPE.map((tree) => tree.type);
 
 function generateTreesGroupedByTypeandAge(initTrees) {
   const map = new Map();
-  const treeTypes = CARBON_OFFSET_PER_TREE_TYPE.map((tree) => tree.type);
-  console.log(treeTypes);
   treeTypes.forEach((type) => {
     map.set(type, new Map());
   });
@@ -171,8 +161,6 @@ function generateTreesGroupedByTypeandAge(initTrees) {
   });
   return map;
 }
-
-console.log(generateTreesGroupedByTypeandAge(enhanced));
 
 function generateDatasets(initTreesGroupedByTypeandAge) {
   const availableColors = ["#ABC2AB", "#86A786", "#49654C", "#D2DED2"];
@@ -191,35 +179,26 @@ function generateDatasets(initTreesGroupedByTypeandAge) {
   return result;
 }
 
-console.log(generateDatasets(generateTreesGroupedByTypeandAge(enhanced)));
-
 const chartFruitTreeAgeInMonthsLabels = calculateLabels(enhanced);
 // dynamic for every type - use to generate the whole data sets
 const chartFruitTreeTreesPerAgeDatasets = generateDatasets(
   generateTreesGroupedByTypeandAge(enhanced)
 );
-// const chartFruitTreeTreesPerAgeDatasets = [
-//   {
-//     label: "Papaya",
-//     backgroundColor: ["#D2DED2"],
-//     data: [34, 55, 65, 34, 123, 43, 54, 65, 76, 68, 12, 0, 4],
-//     borderRadius: 2,
-//   },
-//   {
-//     label: "Mango",
-//     backgroundColor: ["#86A786"],
-//     data: [34, 56, 75, 34, 23, 56, 57, 68, 34, 7, 35, 6, 7, 8],
-//     borderRadius: 2,
-//   },
-//   {
-//     label: "Avocado",
-//     backgroundColor: ["#49654C"],
-//     data: [23, 3, 23, 3, 54, 67, 45, 34, 4, 3, 4, 4, 5, 5],
-//     borderRadius: 2,
-//   },
-// ];
 
 // Pie Chart
-const chartPieLabels = ["Jackfruit", "Mango", "Avocado", "Papaya"];
+function totalTreesPerType(initTrees) {
+  const map = new Map();
+  treeTypes.forEach((type) => {
+    map.set(type, 0);
+  });
+  initTrees.forEach((tree) => {
+    const type = tree.type;
+    const value = map.get(type);
+    map.set(type, value + 1);
+  });
+  return mapToArray(map);
+}
+
+const chartPieLabels = treeTypes;
 const chartPieColors = ["#ABC2AB", "#86A786", "#49654C", "#D2DED2"];
-const chartPietreesGroupedByType = [1000, 400, 120, 320];
+const chartPietreesGroupedByType = totalTreesPerType(enhanced);
