@@ -69,6 +69,7 @@ const enhancedTreesLast12MonthsGroupedByMonth = groupBy(
   (tree) => tree.plantedMonth
 );
 
+// TODO specific name
 function aggregateMapValues(initialMap, attribute) {
   const map = new Map(rollingSorting(INIT_YEAR_MAP));
   const sortedInitialMap = new Map(rollingSorting([...initialMap.entries()]));
@@ -83,6 +84,7 @@ function aggregateMapValues(initialMap, attribute) {
   return mapToArray(map);
 }
 
+// TODO specific name
 function mapSizePerValue(initialMap) {
   const map = new Map(INIT_YEAR_MAP);
   initialMap.forEach((value, key) => {
@@ -95,8 +97,7 @@ function mapSizePerValue(initialMap) {
   return rollingSorting(mapToArray(map));
 }
 
-// TODO functions: sortArrayByRollingMonth
-
+// TODO specific name
 function treesPlantedAccumulatedPerMonth(
   initTreesPlantedPerMonth,
   initEnhancedTreesOlderThan12Months
@@ -132,46 +133,90 @@ const chartMainTotalTrees = treesPlantedAccumulatedPerMonth(
   enhancedTreesOlderThan12Months
 );
 
-const chartMainTreesGroupedByAge = [0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1];
+// const chartMainTreesGroupedByAge = [0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1];
 
 // Fruit Trees per Month chart
-const chartFruitTreeAgeInMonthsLabels = [
-  "0.1",
-  "0.2",
-  "0.3",
-  "0.4",
-  "0.5",
-  "0.6",
-  "0.7",
-  "0.8",
-  "0.9",
-  "1.0",
-  "1.1",
-  "1.2",
-  "1.3",
-  "1.4",
-];
+
+console.log(enhanced);
+// TODO specific name
+function calculateLabels(initTrees) {
+  const ages = initTrees.map((tree) => tree.ageInMonth);
+  return [...new Set(ages)];
+}
+
+const testing = new Map();
+const papayaMap = new Map();
+papayaMap.set(1, 20);
+papayaMap.set(2, 30);
+papayaMap.set(5, 5);
+testing.set("Papaya", papayaMap);
+console.log(testing);
+
+function generateTreesGroupedByTypeandAge(initTrees) {
+  const map = new Map();
+  const treeTypes = CARBON_OFFSET_PER_TREE_TYPE.map((tree) => tree.type);
+  console.log(treeTypes);
+  treeTypes.forEach((type) => {
+    map.set(type, new Map());
+  });
+  initTrees.forEach((tree) => {
+    const type = tree.type;
+    const age = tree.ageInMonth;
+    const value = map.get(type).get(age);
+    if (value) {
+      map.get(type).set(age, value + 1);
+    } else {
+      map.get(type).set(age, 1);
+    }
+  });
+  return map;
+}
+
+console.log(generateTreesGroupedByTypeandAge(enhanced));
+
+function generateDatasets(initTreesGroupedByTypeandAge) {
+  const availableColors = ["#ABC2AB", "#86A786", "#49654C", "#D2DED2"];
+  const result = [];
+  initTreesGroupedByTypeandAge.forEach((value, key) => {
+    const data = mapToArray(value);
+
+    result.push({
+      label: key,
+      backgroundColor: [availableColors.pop()],
+      data: data,
+      borderRadius: 2,
+    });
+  });
+  return result;
+}
+
+console.log(generateDatasets(generateTreesGroupedByTypeandAge(enhanced)));
+
+const chartFruitTreeAgeInMonthsLabels = calculateLabels(enhanced);
 // dynamic for every type - use to generate the whole data sets
-const chartFruitTreeTreesPerAgeDatasets = [
-  {
-    label: "Papaya",
-    backgroundColor: ["#D2DED2"],
-    data: [34, 55, 65, 34, 123, 43, 54, 65, 76, 68, 12, 0, 4],
-    borderRadius: 2,
-  },
-  {
-    label: "Mango",
-    backgroundColor: ["#86A786"],
-    data: [34, 56, 75, 34, 23, 56, 57, 68, 34, 7, 35, 6, 7, 8],
-    borderRadius: 2,
-  },
-  {
-    label: "Avocado",
-    backgroundColor: ["#49654C"],
-    data: [23, 3, 23, 3, 54, 67, 45, 34, 4, 3, 4, 4, 5, 5],
-    borderRadius: 2,
-  },
-];
+const chartFruitTreeTreesPerAgeDatasets = generateDatasets(
+  generateTreesGroupedByTypeandAge(enhanced)
+);
+// const chartFruitTreeTreesPerAgeDatasets = [
+//   {
+//     label: "Papaya",
+//     backgroundColor: ["#D2DED2"],
+//     data: [34, 55, 65, 34, 123, 43, 54, 65, 76, 68, 12, 0, 4],
+//     borderRadius: 2,
+//   },
+//   {
+//     label: "Mango",
+//     backgroundColor: ["#86A786"],
+//     data: [34, 56, 75, 34, 23, 56, 57, 68, 34, 7, 35, 6, 7, 8],
+//     borderRadius: 2,
+//   },
+//   {
+//     label: "Avocado",
+//     backgroundColor: ["#49654C"],
+//     data: [23, 3, 23, 3, 54, 67, 45, 34, 4, 3, 4, 4, 5, 5],
+//     borderRadius: 2,
+//   },
+// ];
 
 // Pie Chart
 const chartPieLabels = ["Jackfruit", "Mango", "Avocado", "Papaya"];
