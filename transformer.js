@@ -179,13 +179,14 @@ function generateDatasets(initTreesGroupedByTypeandAge) {
   const result = [];
   initTreesGroupedByTypeandAge.forEach((value, key) => {
     const data = mapToArray(value);
-
-    result.push({
-      label: key,
-      backgroundColor: [availableColors.pop()],
-      data: data,
-      borderRadius: 2,
-    });
+    if (data.length > 0) {
+      result.push({
+        label: key,
+        backgroundColor: [availableColors.pop()],
+        data: data,
+        borderRadius: 2,
+      });
+    }
   });
   return result;
 }

@@ -36,3 +36,5 @@ const INIT_YEAR_MAP = [
   [10, null],
   [11, null],
 ];
+
+const AGE_GROUPS = 6;
