@@ -37,4 +37,5 @@ const INIT_YEAR_MAP = [
   [11, null],
 ];
 
-const AGE_GROUPS = 6;
+const AIRTABLE_ENDPOINT =
+  "https://api.airtable.com/v0/appbzY4xSZjgh6Z49/tblEIFVBTPw04vipb";
