@@ -8,4 +8,14 @@ While Webflow is a powerful tool for web design, its JavaScript editor has certa
 
 ## Migrating to Webflow
 
-Once the charts are finalized and working as expected, they can be easily migrated to the Webflow platform for the final website integration aka copy-and-paste. The libs have to be replaced by the correpsonding CDNs, these can be found in the `index.html`.
+Once the charts are finalized and working as expected, they can be easily migrated to the Webflow platform for the final website integration aka copy-and-paste.
+Replace the libraries with their corresponding CDNs. You can locate these CDNs in the `index.html`. For better readability within Webflow, ensure each `.js` file is contained in its own block.
+
+## Open Tasks
+
+- [ ] Check data in AirTable
+- [ ] Integrate AirTable
+- [ ] Transform data in required format
+- [ ] Fetch data by company id in URL
+- [ ] Clean up coding
+- [ ] Migrate to WebFlow
