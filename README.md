@@ -14,9 +14,17 @@ Replace the libraries with their corresponding CDNs. You can locate these CDNs i
 ## Open Tasks
 
 - [x] Integrate AirTable
+- [x] Fetch data by company id in URL
 - [ ] Transform data in required format
-- [ ] Fetch data by company id in URL
 - [ ] Implement CO2 Offset calculations
 - [ ] Check if possible to manually host only required datefns functions to not laod the full CDN
 - [ ] Clean up coding
 - [ ] Migrate to WebFlow
+
+## How it works
+
+Data is retrieved from AirTable. Trees have been pre-filtered based on the company ID.
+The company ID is included in the URL, as seen in the example: inception.green/dashboard?companyId=4. Each company is assigned a unique ID.
+The retrieved data is then transformed into a format suitable for further use.
+Relevant calculations are performed using this data to display information for the past 12 months.
+The processed data is then integrated into Chart.js for visualization.
