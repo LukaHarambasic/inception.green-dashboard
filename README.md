@@ -17,5 +17,6 @@ Replace the libraries with their corresponding CDNs. You can locate these CDNs i
 - [ ] Integrate AirTable
 - [ ] Transform data in required format
 - [ ] Fetch data by company id in URL
+- [ ] Implement CO2 Offset calculations
 - [ ] Clean up coding
 - [ ] Migrate to WebFlow
