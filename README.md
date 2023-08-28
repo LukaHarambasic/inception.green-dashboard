@@ -8,4 +8,4 @@ While Webflow is a powerful tool for web design, its JavaScript editor has certa
 
 ## Migrating to Webflow
 
-Once the charts are finalized and working as expected, they can be easily migrated to the Webflow platform for the final website integration aka copy-and-paste.
+Once the charts are finalized and working as expected, they can be easily migrated to the Webflow platform for the final website integration aka copy-and-paste. The libs have to be replaced by the correpsonding CDNs, these can be found in the `index.html`.
