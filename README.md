@@ -13,10 +13,10 @@ Replace the libraries with their corresponding CDNs. You can locate these CDNs i
 
 ## Open Tasks
 
-- [ ] Check data in AirTable
-- [ ] Integrate AirTable
+- [x] Integrate AirTable
 - [ ] Transform data in required format
 - [ ] Fetch data by company id in URL
 - [ ] Implement CO2 Offset calculations
+- [ ] Check if possible to manually host only required datefns functions to not laod the full CDN
 - [ ] Clean up coding
 - [ ] Migrate to WebFlow
